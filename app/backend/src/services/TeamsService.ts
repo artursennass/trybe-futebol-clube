@@ -1,22 +1,28 @@
-import TeamsModel from '../models/TeamsModel';
-import connection from '../models/connection';
+import Teams from '../database/models/TeamModel';
+// import TeamsModel from '../models/TeamsModel';
 import { ITeam } from '../interfaces/TeamInterface';
 
 export default class TeamsService {
-  model: TeamsModel;
+  // model: Teams;
 
-  constructor() {
-    this.model = new TeamsModel(connection);
-  }
+  // constructor(model: Teams) {
+  //   this.model = model;
+  // }
 
   //   public async create(team: ITeam): Promise<ITeam> {
   //     const newTeam = await this.model.create(product);
   //     return newTeam;
   //   }
 
-  public async getAllTeamsService(): Promise<ITeam[]> {
-    const allTeams = await this.model.getAllTeamsModel();
+  public getAllTeamsService = async (): Promise<ITeam[]> => {
+    const allTeams = await Teams.findAll();
 
     return allTeams;
-  }
+  };
+
+  public getByIdTeamsService = async (id: string): Promise<ITeam | null> => {
+    const team = await Teams.findOne({ where: { id } });
+
+    return team;
+  };
 }

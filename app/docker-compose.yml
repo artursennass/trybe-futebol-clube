@@ -23,13 +23,13 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /app-backend
-    user: node
+    # user: node
     # Caso queira que o container esteja atualizado durante o desenvolvimento, 
     # sem que você precise ficar fazendo down e up dos containers, descomente as 3 linhas abaixo
     command: dev
     volumes: 
-      # - ./backend/src:/app-backend/src
-      - ./backend:/app-backend
+      - ./backend/src:/app-backend/src
+      # - ./backend:/app-backend
     depends_on:
       db:
         condition: service_healthy

@@ -4,48 +4,48 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Teams from '../database/models/TeamModel';
+import Users from '../database/models/UserModel';
 
 import { Response } from 'superagent';
-import teamsMock from './mocks/teams.mock';
+import usersMock from './mocks/users.mock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testando /teams', () => {
+describe('Testando /users', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {
     sinon
-      .stub(Teams, "findAll")
-      .resolves(teamsMock as Teams[]);
+      .stub(Users, "findAll")
+      .resolves(usersMock as Users[]);
     
     sinon
-      .stub(Teams, "findOne")
-      .resolves(teamsMock[0] as Teams);
+      .stub(Users, "findOne")
+      .resolves(usersMock[0] as Users);
   });
 
   after(()=>{
-    (Teams.findAll as sinon.SinonStub).restore();
-    (Teams.findOne as sinon.SinonStub).restore();
+    (Users.findAll as sinon.SinonStub).restore();
+    (Users.findOne as sinon.SinonStub).restore();
   })
 
   it('Testando /teams', async () => {
     chaiHttpResponse = await chai
        .request(app)
-       .get('/teams')
+       .get('/users')
 
     expect(chaiHttpResponse.status).to.be.equals(200);
-    expect(chaiHttpResponse.body).to.deep.equal(teamsMock);
+    expect(chaiHttpResponse.body).to.deep.equal(usersMock);
   });
 
   it('Testando /teams/:id', async () => {
     chaiHttpResponse = await chai
        .request(app)
-       .get('/teams/1')
+       .get('/users/1')
 
     expect(chaiHttpResponse.status).to.be.equals(200);
-    expect(chaiHttpResponse.body).to.deep.equal(teamsMock[0]);
+    expect(chaiHttpResponse.body).to.deep.equal(usersMock[0]);
   });
 });

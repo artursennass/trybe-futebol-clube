@@ -21,38 +21,35 @@ describe('Testando /teams', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {
-    // sinon
-    //   .stub(Example, "findOne")
-    //   .resolves({
-    //     ...<Seu mock>
-    //   } as Example);
     sinon
       .stub(Teams, "findAll")
       .resolves(teamsMock as Teams[]);
+    
+    sinon
+      .stub(Teams, "findOne")
+      .resolves(teamsMock[0] as Teams);
   });
 
   after(()=>{
     (Teams.findAll as sinon.SinonStub).restore();
+    (Teams.findOne as sinon.SinonStub).restore();
   })
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
-
-  it('...', async () => {
+  it('Testando /teams', async () => {
     chaiHttpResponse = await chai
        .request(app)
        .get('/teams')
 
     expect(chaiHttpResponse.status).to.be.equals(200);
-    expect(chaiHttpResponse.body.chocolates).to.deep.equal(teamsMock);
+    expect(chaiHttpResponse.body).to.deep.equal(teamsMock);
   });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Testando /teams/:id', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/teams/1')
+
+    expect(chaiHttpResponse.status).to.be.equals(200);
+    expect(chaiHttpResponse.body).to.deep.equal(teamsMock[0]);
   });
 });

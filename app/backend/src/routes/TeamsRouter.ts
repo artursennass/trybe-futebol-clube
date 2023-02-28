@@ -11,6 +11,8 @@ const teamsController = new TeamsController(teamsService);
 
 TeamsRouter.get('/', teamsController.getAllTeamsController);
 
+TeamsRouter.get('/:id', teamsController.getByIdTeamsController);
+
 // TeamsRouter.post('/', teamsController.create);
 
 export default TeamsRouter;

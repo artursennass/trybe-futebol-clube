@@ -12,7 +12,7 @@ module.exports = {
       homeTeamId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'home_Team_id',
+        field: 'home_team_id',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -23,12 +23,12 @@ module.exports = {
       homeTeamGoals: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'home_Team_goals',
+        field: 'home_team_goals',
       },
       awayTeamId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'away_Team_id',
+        field: 'away_team_id',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -39,7 +39,7 @@ module.exports = {
       awayTeamGoals: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'away_Team_goals',
+        field: 'away_team_goals',
       },
       inProgress: {
         allowNull: false,

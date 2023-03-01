@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// import productValidation from '../middleware/productValidation';
 import TeamsService from '../services/TeamsService';
 
 export default class TeamsController {
@@ -8,22 +7,6 @@ export default class TeamsController {
   constructor(service: TeamsService) {
     this.service = service;
   }
-
-  //   public create = async (req: Request, res: Response) => {
-  //     const product = req.body;
-  //     const error = productValidation(product);
-
-  //     if (error !== undefined) {
-  //       if (error.details[0].message.includes('required')) {
-  //         return res.status(400).json({ message: error.details[0].message });
-  //       }
-
-  //       return res.status(422).json({ message: error.details[0].message });
-  //     }
-
-  //     const addedProduct = await this.service.create(product);
-  //     res.status(201).json(addedProduct);
-  //   };
 
   public getAllTeamsController = async (_req: Request, res: Response) => {
     const allTeams = await this.service.getAllTeamsService();

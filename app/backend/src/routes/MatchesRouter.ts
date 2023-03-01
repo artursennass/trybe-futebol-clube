@@ -2,6 +2,7 @@ import * as express from 'express';
 import MatchesService from '../services/MatchesService';
 import MatchesController from '../controllers/MatchesController';
 import ValidateToken, { RequestEspecial } from '../middleware/validateToken';
+import ValidateMatch from '../middleware/validateMatch';
 
 const MatchesRouter = express.Router();
 const matchesService = new MatchesService();
@@ -24,6 +25,7 @@ MatchesRouter.patch(
 MatchesRouter.post(
   '/',
   (req, res, next) => ValidateToken.validation(req as RequestEspecial, res, next),
+  (req, res, next) => ValidateMatch.validation(req as RequestEspecial, res, next),
   (req, res) => matchesController.create(req as RequestEspecial, res),
 );
 

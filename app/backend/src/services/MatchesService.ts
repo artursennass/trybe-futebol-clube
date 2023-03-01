@@ -53,12 +53,13 @@ export default class TeamsService {
     homeTeamGoals: number,
     awayTeamGoals: number,
   ): Promise<IMatches> => {
-    const newMatch = await Matches.create({
+    const { dataValues } = await Matches.create({
       homeTeamId,
       awayTeamId,
       homeTeamGoals,
       awayTeamGoals,
+      inProgress: true,
     });
-    return newMatch;
+    return dataValues;
   };
 }

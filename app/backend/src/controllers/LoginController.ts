@@ -16,19 +16,20 @@ export default class TeamsController {
 
     const error = LoginValidation.joiValidation(req.body);
     if (error !== undefined) {
-      return res.status(400).json({ message: error.details[0].message });
+      if (error.details[0].message.includes('All fields')) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
+      return res.status(401).json({ message: error.details[0].message });
     }
 
     const user = await this.service.loginCheck(email);
-    if (!user) {
-      return res.status(404).json({ message: 'Email not registered' });
-    }
+    if (!user) { return res.status(401).json({ message: 'Invalid email or password' }); }
 
     let checkPassword;
     if (user.password !== undefined) {
       checkPassword = bcrypt.compareSync(password, user.password);
     }
-    if (!checkPassword) return res.status(404).json({ message: 'Incorrect password' });
+    if (!checkPassword) return res.status(401).json({ message: 'Invalid email or password' });
 
     delete user.password;
     const token = GenerateToken.newToken(user);

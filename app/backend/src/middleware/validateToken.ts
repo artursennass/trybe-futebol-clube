@@ -7,7 +7,7 @@ import { IUser } from '../interfaces/UserInterface';
 const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 export interface RequestEspecial extends Request {
-  user: number;
+  user: number
 }
 
 export default class ValidateToken {
@@ -19,8 +19,9 @@ export default class ValidateToken {
     return user;
   };
 
-  static validation = async (req: RequestEspecial, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization');
+  static validation = async (req: Request, res: Response, next: NextFunction) => {
+    const request = req as RequestEspecial;
+    const token = request.header('Authorization');
 
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
@@ -33,7 +34,7 @@ export default class ValidateToken {
 
       if (typeof decoded !== 'string') {
         user = await ValidateToken.checkEmail(decoded.data.email);
-        req.user = decoded.data.id;
+        request.user = decoded.data.id;
       }
 
       if (!user) {
@@ -41,8 +42,6 @@ export default class ValidateToken {
       }
 
       next();
-    } catch (err) {
-      return res.status(401).json({ message: 'Token must be a valid token' });
-    }
+    } catch (err) { return res.status(401).json({ message: 'Token must be a valid token' }); }
   };
 }

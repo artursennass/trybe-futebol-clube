@@ -27,4 +27,38 @@ export default class TeamsService {
 
     return FilteredMatches;
   };
+
+  public endingMatch = async (id: string): Promise<number> => {
+    const [affectedCount] = await Matches.update({ inProgress: false }, {
+      where: {
+        id,
+      },
+    });
+    return affectedCount;
+  };
+
+  public scoringMatch = async (id: string, homeTeamGoals: number, awayTeamGoals: number)
+  : Promise<number> => {
+    const [affectedCount] = await Matches.update({ homeTeamGoals, awayTeamGoals }, {
+      where: {
+        id,
+      },
+    });
+    return affectedCount;
+  };
+
+  public create = async (
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<IMatches> => {
+    const newMatch = await Matches.create({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+    });
+    return newMatch;
+  };
 }

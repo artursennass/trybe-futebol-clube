@@ -24,4 +24,12 @@ export default class LoginService {
       email: 'string',
     };
   };
+
+  public roleCheck = async (id: number): Promise<IUser | null> => {
+    const user = await Users.findOne({
+      where: { id },
+    });
+
+    return user;
+  };
 }

@@ -3,6 +3,7 @@ import * as bcrypt from 'bcryptjs';
 import GenerateToken from '../middleware/generateToken';
 import LoginValidation from '../middleware/loginValidation';
 import LoginService from '../services/LoginService';
+import { RequestEspecial } from '../middleware/validateToken';
 
 export default class TeamsController {
   service: LoginService;
@@ -36,5 +37,13 @@ export default class TeamsController {
 
     return res.status(200).json({ token });
   };
+
+  public roleCheck = async (req: RequestEspecial, res: Response) => {
+    const id = req.user;
+
+    const user = await this.service.roleCheck(id);
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    return res.status(200).json({ role: user.role });
+  };
 }
-// dsds

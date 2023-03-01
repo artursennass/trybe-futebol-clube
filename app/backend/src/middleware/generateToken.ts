@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import { SignOptions } from 'jsonwebtoken';
 import { IUser } from '../interfaces/UserInterface';
 
-const secret = process.env.JWT_SECRET || 'segredoSuperSecreto';
+const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 export default class GenerateToken {
   static newToken(user: IUser) {

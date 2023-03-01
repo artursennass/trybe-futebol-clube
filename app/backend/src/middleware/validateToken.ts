@@ -1,44 +1,48 @@
-// import * as jwt from 'jsonwebtoken';
-// import { NextFunction, Request, Response } from 'express';
-// import 'dotenv/config';
-// import { IUser } from '../interfaces/UserInterface';
-// import connection from '../models/connection';
+import * as jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import 'dotenv/config';
+import Users from '../database/models/UserModel';
+import { IUser } from '../interfaces/UserInterface';
 
-// const secret = process.env.JWT_SECRET || 'senhaSuperSecreta';
+const secret = process.env.JWT_SECRET || 'jwt_secret';
 
-// const checkUsername = async (username: string): Promise<IUser[]> => {
-//   const query = 'SELECT * FROM Trybesmith.users WHERE Trybesmith.users.username = ?';
-//   const [result] = await connection.execute(query, [username]);
-//   return result as IUser[];
-// };
+export interface RequestEspecial extends Request {
+  user: number;
+}
 
-// export interface RequestEspecial extends Request {
-//   user: number;
-// }
+export default class ValidateToken {
+  static checkEmail = async (email: string): Promise<IUser | null> => {
+    const user = await Users.findOne({
+      where: { email },
+    });
 
-// export default async (req: RequestEspecial, res: Response, next: NextFunction) => {
-//   const token = req.header('Authorization');
+    return user;
+  };
 
-//   if (!token) {
-//     return res.status(401).json({ message: 'Token not found' });
-//   }
+  static validation = async (req: RequestEspecial, res: Response, next: NextFunction) => {
+    const token = req.header('Authorization');
 
-//   try {
-//     const decoded = jwt.verify(token, secret);
+    if (!token) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
 
-//     let user;
+    try {
+      const decoded = jwt.verify(token, secret);
 
-//     if (typeof decoded !== 'string') {
-//       user = await checkUsername(decoded.data.username);
-//       req.user = decoded.data.id;
-//     }
+      let user;
 
-//     if (!user) {
-//       return res.status(401).json({ message: 'Invalid token' });
-//     }
+      if (typeof decoded !== 'string') {
+        user = await ValidateToken.checkEmail(decoded.data.email);
+        req.user = decoded.data.id;
+      }
 
-//     next();
-//   } catch (err) {
-//     return res.status(401).json({ message: 'Invalid token' });
-//   }
-// };
+      if (!user) {
+        return res.status(401).json({ message: 'Token must be a valid token' });
+      }
+
+      next();
+    } catch (err) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
+  };
+}

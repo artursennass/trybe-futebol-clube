@@ -37,3 +37,4 @@ export default class TeamsController {
     return res.status(200).json({ token });
   };
 }
+// dsds

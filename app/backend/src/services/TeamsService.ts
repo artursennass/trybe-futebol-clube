@@ -1,8 +1,10 @@
 import Teams from '../database/models/TeamModel';
-import { ITeam, ITeamComplete } from '../interfaces/TeamInterface';
+import { ITeam } from '../interfaces/TeamInterface';
+// import { ITeam, ITeamComplete } from '../interfaces/TeamInterface';
 
 export default class TeamsService {
-  public getAllTeamsService = async (): Promise<ITeamComplete[]> => {
+  // : Promise<ITeamComplete[]>
+  public getAllTeamsService = async () => {
     const allTeams = await Teams.findAll();
 
     return allTeams;

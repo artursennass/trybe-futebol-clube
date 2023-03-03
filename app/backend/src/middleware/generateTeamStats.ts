@@ -80,6 +80,8 @@ export default class GenerateTeamStats {
       efficiency,
     };
 
+    // console.log('STATS', stats);
+
     return stats;
   };
 

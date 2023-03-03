@@ -58,7 +58,6 @@ export default class GenerateTeamStats {
 
   static generateStats = async (team: ITeamComplete) => {
     const matches = await GenerateTeamStats.findMatchById(team.id);
-    console.log('MATCHES', matches);
 
     const pointsResult = GenerateTeamStats.pointsAndResults(matches, team.id);
 

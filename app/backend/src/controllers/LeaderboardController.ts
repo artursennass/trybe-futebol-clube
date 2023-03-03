@@ -11,20 +11,25 @@ export default class LeaderboardController {
 
   public getLeaderboard = async (_req: Request, res: Response) => {
     const allTeams = await this.service.getAllTeamsService();
-    // console.log('all teams', allTeams[0].dataValues);
 
-    const leadeboard = allTeams.map(async (team) => {
-      const statsGenerated = await GenerateTeamStats.generateStats(team.dataValues);
-      // console.log('inside map', statsGenerated);
+    const orderedLeaderboard = await GenerateTeamStats.leaderboard(allTeams);
 
-      return statsGenerated;
-    });
-    // console.log('antes', leadeboard);
+    return res.status(200).json(orderedLeaderboard);
+  };
 
-    // await
+  public getLeaderboardHome = async (_req: Request, res: Response) => {
+    const allTeams = await this.service.getAllTeamsService();
 
-    // console.log('depois', leadeboard);
+    const orderedLeaderboard = await GenerateTeamStats.leaderboard(allTeams, 'home');
 
-    return res.status(200).json(await Promise.all(leadeboard));
+    return res.status(200).json(orderedLeaderboard);
+  };
+
+  public getLeaderboardAway = async (_req: Request, res: Response) => {
+    const allTeams = await this.service.getAllTeamsService();
+
+    const orderedLeaderboard = await GenerateTeamStats.leaderboard(allTeams, 'away');
+
+    return res.status(200).json(orderedLeaderboard);
   };
 }

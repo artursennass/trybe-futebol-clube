@@ -24,6 +24,7 @@ export default class TeamsController {
     }
 
     const user = await this.service.loginCheck(email);
+
     if (!user) { return res.status(401).json({ message: 'Invalid email or password' }); }
 
     let checkPassword;

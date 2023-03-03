@@ -44,6 +44,7 @@ export default class TeamsService {
         id,
       },
     });
+
     return affectedCount;
   };
 
@@ -60,6 +61,7 @@ export default class TeamsService {
       awayTeamGoals,
       inProgress: true,
     });
+
     return dataValues;
   };
 }

@@ -28,8 +28,8 @@ export default class ValidateMatch {
     const homeTeam = await ValidateMatch.checkTeam(homeTeamId);
     const awayTeam = await ValidateMatch.checkTeam(awayTeamId);
 
-    console.log('homeTeam', homeTeam);
-    console.log('awayTeam', awayTeam);
+    // console.log('homeTeam', homeTeam);
+    // console.log('awayTeam', awayTeam);
 
     if (!homeTeam || !awayTeam) {
       return res.status(404).json({

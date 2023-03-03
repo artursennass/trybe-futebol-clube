@@ -34,6 +34,7 @@ export default class MatchesController {
       const request = req as RequestEspecial;
       const { id } = request.params;
       const endMatch = await this.service.endingMatch(id);
+      console.log(endMatch);
 
       if (endMatch !== 0) return res.status(200).json({ message: 'Finished' });
       return res.status(500).json({ message: 'Unable to perform task' });
@@ -49,7 +50,6 @@ export default class MatchesController {
       const { id } = req.params;
       const { homeTeamGoals, awayTeamGoals } = req.body;
       const scoreMatch = await this.service.scoringMatch(id, homeTeamGoals, awayTeamGoals);
-      console.log(scoreMatch);
 
       if (scoreMatch !== 0) return res.status(200).json({ message: 'Score updated' });
       return res.status(500).json({ message: 'Unable to perform task' });

@@ -61,3 +61,4 @@ describe('Testando /teams', () => {
     expect(chaiHttpResponse.body).to.deep.equal(leadeboardResponseMock);
   });
 });
+

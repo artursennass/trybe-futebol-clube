@@ -1,6 +1,6 @@
 # Trybe Futebol Clube
 
-Este é o repositório do projeto "Trybe Futebol Clube". O projeto consiste em um aplicativo de gerenciamento de times de futebol. Feito como estudo pela escola de programação [Trybe](https://www.betrybe.com/).
+Este é o repositório do projeto "Trybe Futebol Clube". O projeto consiste em um aplicativo de gerenciamento de times de futebol. Feito como estudo na escola de programação [Trybe](https://www.betrybe.com/).
 
 
 ## Funcionalidades

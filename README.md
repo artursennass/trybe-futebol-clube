@@ -67,6 +67,21 @@ http://localhost:3000
 ```
 
 
+## Logando na aplicação:
+
+1. Logando como usuário:
+   '''
+   Login: user@user.com
+   Senha: secret_user
+   '''
+
+2. Logando como administrador:
+   '''
+   Login: admin@admin.com
+   Senha: secret_admin
+   '''
+
+
 ## Contribuição
 
 1. Faça um fork do projeto

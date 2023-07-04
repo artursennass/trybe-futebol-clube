@@ -16,10 +16,11 @@ Este é o repositório do projeto "Trybe Futebol Clube". O projeto consiste em u
 
 - HTML
 - CSS
-- JavaScript
+- TypeScript
 - Node.js
 - Express.js
 - MongoDB
+- Docker
 
 
 ## Pré-requisitos
@@ -53,10 +54,10 @@ npm install
 
 ## Uso
 
-1. Inicie o servidor:
+1. Inicie o servidor (esse comando irá demorar um pouco):
 
 ```bash
-npm start
+npm run compose:up
 ```
 
 2. Acesse o aplicativo no seu navegador:
